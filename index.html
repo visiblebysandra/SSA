@@ -335,7 +335,7 @@
 <div class="card" onclick="showCategory('travel')">✈️<br>Travel & Destinations</div>
 
   </main>
-    <!-- CATEGORY: Health & Medical -->
+<!-- CATEGORY: Health & Medical -->
     <div id="health" class="category-section">
       <h2>🏥 Health & Medical</h2>
       <p class="disclaimer-note" style="font-size: 0.75rem; color: #666; text-align: center; margin-top: 1.5rem;">
@@ -844,12 +844,22 @@
     document.getElementById("disclaimerModal").style.display = "none";
   }
 
-  const termsCheckbox = document.getElementById("acceptTerms");
-  if (termsCheckbox) {
-    termsCheckbox.onchange = function () {
-      document.getElementById("continueBtn").disabled = !this.checked;
-    }
+  window.onload = function () {
+  const modal = document.getElementById("disclaimerModal");
+  if (!localStorage.getItem("ssaDisclaimerAccepted") && modal) {
+    modal.style.display = "block";
   }
+
+  const termsCheckbox = document.getElementById("acceptTerms");
+  const continueBtn = document.getElementById("continueBtn");
+
+  if (termsCheckbox && continueBtn) {
+    termsCheckbox.onchange = function () {
+      continueBtn.disabled = !this.checked;
+    };
+  }
+}
+
 </script>
 
 </body>
