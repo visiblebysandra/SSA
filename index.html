@@ -794,49 +794,49 @@
 
   <!-- SCRIPT -->
   <script>
-    function showCategory(id) {
-      document.getElementById('mainMenu').style.display = 'none';
-      document.querySelectorAll('.category-section').forEach(section => section.classList.remove('active'));
-      const target = document.getElementById(id);
-      if (target) target.classList.add('active');
+  function showCategory(id) {
+    document.getElementById('mainMenu').style.display = 'none';
+    document.querySelectorAll('.category-section').forEach(section => {
+      section.classList.remove('active');
+      section.style.display = 'none';
+    });
+    const target = document.getElementById(id);
+    if (target) {
+      target.classList.add('active');
+      target.style.display = 'block';
+      window.scrollTo(0, 0);
     }
+  }
 
-    function goBack() {
-      document.querySelectorAll('.category-section').forEach(section => section.classList.remove('active'));
-      document.getElementById('mainMenu').style.display = 'grid';
-    }
+  function goBack() {
+    document.querySelectorAll('.category-section').forEach(section => {
+      section.classList.remove('active');
+      section.style.display = 'none';
+    });
+    document.getElementById('mainMenu').style.display = 'grid';
+  }
 
-    function filterDoctors() {
-      const selected = document.getElementById('doctorFilter').value;
-      const entries = document.querySelectorAll('#health .entry');
-      entries.forEach(entry => {
-        if (selected === 'all') {
-          entry.style.display = 'block';
-        } else {
-          entry.style.display = entry.classList.contains(selected) ? 'block' : 'none';
-        }
-      });
-    }
-   function filterCategories() {
-    const selected = document.getElementById("categoryFilter").value;
-    const sections = document.querySelectorAll(".category-section");
-
-    sections.forEach(section => {
-      if (selected === "all" || section.id === selected) {
-        section.style.display = "block";
-      } else {
-        section.style.display = "none";
-      }
+  function filterDoctors() {
+    const selected = document.getElementById('doctorFilter')?.value;
+    const entries = document.querySelectorAll('#health .entry');
+    entries.forEach(entry => {
+      entry.style.display = (selected === 'all' || entry.classList.contains(selected)) ? 'block' : 'none';
     });
   }
-     window.onload = function () {
-    if (!localStorage.getItem("ssaDisclaimerAccepted")) {
-      document.getElementById("disclaimerModal").style.display = "block";
-    }
+
+  function filterCategories() {
+    const selected = document.getElementById("categoryFilter").value;
+    const sections = document.querySelectorAll(".category-section");
+    sections.forEach(section => {
+      section.style.display = (selected === "all" || section.id === selected) ? "block" : "none";
+    });
   }
 
-  document.getElementById("acceptTerms").onchange = function () {
-    document.getElementById("continueBtn").disabled = !this.checked;
+  window.onload = function () {
+    if (!localStorage.getItem("ssaDisclaimerAccepted")) {
+      const modal = document.getElementById("disclaimerModal");
+      if (modal) modal.style.display = "block";
+    }
   }
 
   function acceptDisclaimer() {
@@ -844,28 +844,14 @@
     document.getElementById("disclaimerModal").style.display = "none";
   }
 
-    document.addEventListener("DOMContentLoaded", function () {
-  const disclaimerBtn = document.querySelector('button[data-section="disclaimer"]');
-  const disclaimerSection = document.getElementById("disclaimer");
-  const mainMenu = document.getElementById("mainMenu");
-
-  if (disclaimerBtn && disclaimerSection && mainMenu) {
-    disclaimerBtn.addEventListener("click", function () {
-      // Hide all sections
-      document.querySelectorAll(".category-section, #suggest").forEach(el => el.classList.remove("active"));
-      mainMenu.style.display = "none";
-
-      // Show disclaimer
-      disclaimerSection.classList.add("active");
-      disclaimerSection.style.display = "block";
-
-      // Scroll to top
-      window.scrollTo(0, 0);
-    });
+  const termsCheckbox = document.getElementById("acceptTerms");
+  if (termsCheckbox) {
+    termsCheckbox.onchange = function () {
+      document.getElementById("continueBtn").disabled = !this.checked;
+    }
   }
-});
+</script>
 
-  </script>
 </body>
 </html>
 
