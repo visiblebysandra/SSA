@@ -814,12 +814,32 @@
   }
 
   function filterCategories() {
-    const selected = document.getElementById("categoryFilter").value;
-    const sections = document.querySelectorAll(".category-section");
-    sections.forEach(section => {
-      section.style.display = (selected === "all" || section.id === selected) ? "block" : "none";
-    });
+  const selected = document.getElementById("categoryFilter").value;
+  const mainMenu = document.getElementById("mainMenu");
+
+  // Hide all category sections
+  document.querySelectorAll(".category-section").forEach(section => {
+    section.classList.remove("active");
+    section.style.display = "none";
+  });
+
+  // If "all" is selected, show mainMenu
+  if (selected === "all") {
+    mainMenu.style.display = "grid";
+  } else {
+    mainMenu.style.display = "none";
+
+    const targetSection = document.getElementById(selected);
+    if (targetSection) {
+      targetSection.classList.add("active");
+      targetSection.style.display = "block";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      console.warn("No section found with ID:", selected);
+    }
   }
+}
+
 
   window.onload = function () {
     if (!localStorage.getItem("ssaDisclaimerAccepted")) {
