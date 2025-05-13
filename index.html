@@ -843,6 +843,28 @@
     localStorage.setItem("ssaDisclaimerAccepted", "true");
     document.getElementById("disclaimerModal").style.display = "none";
   }
+
+    document.addEventListener("DOMContentLoaded", function () {
+  const disclaimerBtn = document.querySelector('button[data-section="disclaimer"]');
+  const disclaimerSection = document.getElementById("disclaimer");
+  const mainMenu = document.getElementById("mainMenu");
+
+  if (disclaimerBtn && disclaimerSection && mainMenu) {
+    disclaimerBtn.addEventListener("click", function () {
+      // Hide all sections
+      document.querySelectorAll(".category-section, #suggest").forEach(el => el.classList.remove("active"));
+      mainMenu.style.display = "none";
+
+      // Show disclaimer
+      disclaimerSection.classList.add("active");
+      disclaimerSection.style.display = "block";
+
+      // Scroll to top
+      window.scrollTo(0, 0);
+    });
+  }
+});
+
   </script>
 </body>
 </html>
