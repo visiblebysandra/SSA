@@ -259,6 +259,26 @@
     max-width: 300px;
     display: block;
   }
+    .modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  max-width: 500px;
+  margin: 100px auto;
+  border-radius: 8px;
+  text-align: center;
+}
+
   </style>
 </head>
 <body>
@@ -731,6 +751,22 @@
     <button onclick="showCategory('disclaimer')">⚠️ Disclaimer</button>
   </div>
 </div>
+<!-- Disclaimer Modal -->
+<div id="disclaimerModal" class="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:9999;">
+  <div class="modal-content" style="background:white; padding:20px; max-width:500px; margin:100px auto; border-radius:8px; text-align:center;">
+    <h3>Terms of Use</h3>
+    <p style="font-size:14px;">
+      SSA Colombia and its affiliated chapters (collectively, "SSA") do not own, sponsor, or endorse this directory application (the "App"). SSA assumes no responsibility for the App's creation, operation, or ongoing maintenance.
+    </p>
+    <p style="font-size:13px;">
+      Listings are shared for informational purposes only and do not constitute endorsements. SSA shall not be held liable for any consequences that may arise from using the App.
+    </p>
+    <label style="display:block; margin:15px 0;">
+      <input type="checkbox" id="acceptTerms"> I accept the terms and conditions
+    </label>
+    <button id="continueBtn" onclick="acceptDisclaimer()" disabled style="padding:8px 16px;">Continue</button>
+  </div>
+</div>
 
 
   <!-- SCRIPT -->
@@ -769,6 +805,20 @@
         section.style.display = "none";
       }
     });
+  }
+     window.onload = function () {
+    if (!localStorage.getItem("ssaDisclaimerAccepted")) {
+      document.getElementById("disclaimerModal").style.display = "block";
+    }
+  }
+
+  document.getElementById("acceptTerms").onchange = function () {
+    document.getElementById("continueBtn").disabled = !this.checked;
+  }
+
+  function acceptDisclaimer() {
+    localStorage.setItem("ssaDisclaimerAccepted", "true");
+    document.getElementById("disclaimerModal").style.display = "none";
   }
   </script>
 </body>
